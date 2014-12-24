@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+
+
+    <!--应用名称-->
+    <dubbo:application name="hello-world" />
+
+    <!-- 注册地址 -->
+    <!--<dubbo:registry address="multicast://224.5.6.7:1234" />-->
+    <!--<dubbo:registry  protocol="zookeeper" address="192.168.66.226:2181" />-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <!-- 接口的位置 -->
+    <dubbo:service interface="com.lhx.service.SayHelloToClient"
+                   ref="demoService" executes="10" />
+
+
+    <!-- 实现bean，客户端应用的bean就以这个id名称为主 -->
+    <bean id="demoService" class="com.lhx.service.impl.SayHelloToClientImpl" />
+    <!-- 具体的实现bean -->
+    <bean id="demoService2" class="com.lhx.service.impl.DemoServiceImpl" />
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.lhx.service.DemoService" ref="demoService2" />
+
+</beans>
