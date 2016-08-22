@@ -1,0 +1,2 @@
+authorityFilter=com.lhx.filter.AuthorityFilter
+specialFilter=com.lhx.filter.SpecialFilter
